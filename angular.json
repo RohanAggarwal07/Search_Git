@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "githubUsers"
+    }
+  },
+  "defaultProject": "githubUsers",
+  "cli": {
+    "analytics": "b4fbc940-3924-4f43-927f-ca605f77a246"
+  }
 }
