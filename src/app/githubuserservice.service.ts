@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
 export class GithubuserserviceService {
 
   private search_url:string="https://api.github.com/search/users?q=";
-  private sort_url:string="";
+  private api2:string="https://api.github.com/users/";
   constructor(private http:HttpClient) { }
 
   searchUser1(value:string){
@@ -26,4 +26,15 @@ export class GithubuserserviceService {
     }
     return this.http.get(this.search_url.concat(user).concat("&sort=score&order=").concat(orderString));
  }
+ userDetail(username:string){
+   return this.http.get(this.api2+username);
+ }
+
+ getnextpage(user:string,counter:any){
+   return this.http.get(this.search_url+user+"&page=" +counter);
+ }
 }
+
+
+
+

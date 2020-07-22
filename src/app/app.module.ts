@@ -5,6 +5,9 @@ import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ModalModule} from 'ngx-bootstrap/modal';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule,
+    NgxSpinnerModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

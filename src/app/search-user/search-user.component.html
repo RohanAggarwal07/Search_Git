@@ -1,40 +1,63 @@
-    <div class="container">
-        <br/>
-        <div class="row justify-content-center">
-                            <div class="col-12 col-md-10 col-lg-8">
-                                <form class="card card-sm">
-                                    <div class="card-body row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <i class="fas fa-search h4 text-body"></i>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control" placeholder="Type to search"  [(ngModel)]="search" name="user">
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-md btn-info" type="submit" (click)="searchUser()">Search</button>
-                                            <button class="btn btn-warning" (click)="sort()">AscendingSort</button>
-                                            <button class="btn btn-warning" (click)="sort2()">DescendingSort</button>                                            
-                                        </div>
-                                    </div>
-                                </form>
-                                <p *ngFor="let user of users.items">
-                                    {{user.login}}
-                                </p>
-                              </div>
-                            </div>
-                        <ng-template #elseBlock>
-                        <p class="text gray-800">Not Found</p>
- </ng-template>
- <div *ngFor="let user of users.items">         
-  <div class="row" *ngIf="userFlag==true;else elseBlock">
-      <div class="col-sm">
-         <div class="card" style="width: 18rem;">
-             <img class="card-img-top" src={{user.avatar_url}} alt="Card image cap">
-             <div class="card-body">
-               <p class="card-text">{{user.login}}</p>
-             </div>
-           </div>
-      </div>
-  </div>
- </div> 
+ <div class="container">
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col">
+                        <input class="form-control" placeholder="Type to search" [(ngModel)]="search" name="user">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-md btn-info" type="submit" (click)="searchUser()">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><br>
+    <ng-template #elseBlock1>
+        <p class="text gray-800"></p>
+    </ng-template>
+
+    <div class="container" *ngIf="userFlag==true;else elseBlock1">
+        
+        <div class="search-results" 
+        infiniteScroll 
+        [infiniteScrollDistance]="2" 
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()">
+        <button class="btn btn-warning" (click)="sort()">AscendingSort</button>
+        <button class="btn btn-warning" (click)="sort2()">DescendingSort</button>
+               
+
+<div class="row" >   
+    <div *ngFor="let user of users">
+         <div class="col-sm">
+            <div class="card" style="width: 18rem;" (click)="openModal(template,user.login)">
+                <img class="card-img-top" src={{user.avatar_url}} alt="Card image cap">
+                <div class="card-body">
+                  <p class="card-text">{{user.login}}</p>
+                  <p class="text gray-800">{{user.id}}</p>
+                </div>
+              </div>
+         </div>
+     </div>
+    </div> 
 </div>
+
+<ng-template #template>
+    <div class="modal-header " style="background-color: cadetblue;">
+      <h4 class="modal-title pull-left ">{{userDetail?.login}}</h4>
+      <i *ngIf="userDetail?.site_admin==false" class="fa fa-flag " style="font-size: 24px;" aria-hidden="true"></i>
+      <i *ngIf="userDetail?.site_admin==true" class="fa fa-flag-o " style="font-size: 24px;"aria-hidden="true"></i>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <b><span class="text ">Public_repos:</span></b><button class="btn btn-warning">{{userDetail?.public_repos}}</button><br>
+      <b><span class="text ">Followers:</span></b><p class="text text-gray-800">{{userDetail?.followers}}</p>
+      <b><span class="text ">Following:</span></b><p class="text text-gray-800">{{userDetail?.following}}</p>
+      <span class="text text-danger">Created_at:</span><p class="text text-gray-800">{{userDetail?.created_at | date }}</p>
+
+    </div>
+  </ng-template> 
